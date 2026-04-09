@@ -6,1812 +6,1365 @@
   <title>gomatheus — Um time de marketing com IA dentro da sua empresa</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400;1,600&family=Caveat:wght@400;500&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=DM+Sans:wght@200;300;400;500&family=Caveat:wght@400&display=swap" rel="stylesheet">
+
   <style>
-    /* ==============================
-       TOKENS
-    ============================== */
+    /* ─── TOKENS ─────────────────────────────────────────── */
     :root {
+      --bg-deep:      #0B0A07;
+      --bg-base:      #100F0C;
+      --bg-card:      #181610;
+      --bg-raised:    #1E1C16;
       --oliva:        #3B3F2B;
-      --oliva-medio:  #4E5438;
-      --oliva-claro:  #6B7355;
       --cobre:        #A0612B;
       --bronze:       #8B6E42;
-      --pergaminho:   #E8E0D0;
-      --cacau:        #2E2218;
       --dourado:      #BFA97D;
-      --pergaminho-50: rgba(232,224,208,0.5);
-      --pergaminho-20: rgba(232,224,208,0.2);
-      --pergaminho-08: rgba(232,224,208,0.08);
-      --cobre-80:     rgba(160,97,43,0.8);
+      --perg:         #E8E0D0;
+      --perg-70:      rgba(232,224,208,0.70);
+      --perg-40:      rgba(232,224,208,0.40);
+      --perg-15:      rgba(232,224,208,0.15);
+      --perg-07:      rgba(232,224,208,0.07);
+      --perg-03:      rgba(232,224,208,0.03);
+      --cobre-15:     rgba(160,97,43,0.15);
+      --cobre-30:     rgba(160,97,43,0.30);
       --nav-h:        72px;
     }
 
-    /* ==============================
-       RESET + BASE
-    ============================== */
+    /* ─── RESET ──────────────────────────────────────────── */
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     html { scroll-behavior: smooth; font-size: 16px; }
     body {
       font-family: 'DM Sans', sans-serif;
       font-weight: 300;
-      background: var(--oliva);
-      color: var(--pergaminho);
+      background: var(--bg-base);
+      color: var(--perg);
       overflow-x: hidden;
       -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
     }
     img { display: block; max-width: 100%; }
     a { color: inherit; text-decoration: none; }
     button { font-family: inherit; cursor: pointer; border: none; background: none; }
 
-    /* ==============================
-       TYPOGRAPHY HELPERS
-    ============================== */
-    .overline {
+    /* ─── LAYOUT ──────────────────────────────────────────── */
+    .wrap {
+      max-width: 1080px;
+      margin: 0 auto;
+      padding: 0 52px;
+    }
+    .wrap-narrow {
+      max-width: 720px;
+      margin: 0 auto;
+      padding: 0 52px;
+    }
+
+    /* ─── TYPOGRAPHY ──────────────────────────────────────── */
+    .label {
       font-family: 'DM Sans', sans-serif;
       font-weight: 400;
-      font-size: 11px;
-      letter-spacing: 0.2em;
+      font-size: 10px;
+      letter-spacing: 0.22em;
       text-transform: uppercase;
-      color: var(--oliva-claro);
+      color: var(--perg-40);
+    }
+    .label-cobre {
+      color: var(--cobre);
+      opacity: 0.8;
     }
     .headline {
       font-family: 'Cormorant Garamond', serif;
-      font-weight: 400;
       font-style: italic;
+      font-weight: 300;
       color: var(--dourado);
-      line-height: 1.1;
+      line-height: 1.08;
+      letter-spacing: -0.01em;
     }
-    .tagline {
-      font-family: 'Caveat', cursive;
-      font-weight: 400;
-      color: var(--cobre);
+    .headline-perg {
+      color: var(--perg);
     }
     .body-text {
       font-family: 'DM Sans', sans-serif;
       font-weight: 300;
-      color: var(--pergaminho-50);
-      line-height: 1.75;
+      font-size: 15px;
+      color: var(--perg-70);
+      line-height: 1.8;
     }
-
-    /* ==============================
-       LAYOUT HELPERS
-    ============================== */
-    .container {
-      max-width: 1200px;
-      margin: 0 auto;
-      padding: 0 48px;
-    }
-    .section-pad { padding: 120px 0; }
-    .section-pad-sm { padding: 80px 0; }
-
-    /* ==============================
-       BUTTONS
-    ============================== */
-    .btn-primary {
-      display: inline-flex;
-      align-items: center;
-      gap: 10px;
-      background: var(--cobre);
-      color: var(--pergaminho);
-      font-family: 'DM Sans', sans-serif;
+    .tagline-text {
+      font-family: 'Caveat', cursive;
       font-weight: 400;
-      font-size: 14px;
-      letter-spacing: 0.04em;
-      padding: 16px 32px;
-      border-radius: 8px;
-      transition: background 0.25s, transform 0.2s;
-    }
-    .btn-primary:hover {
-      background: #b86e30;
-      transform: translateY(-1px);
-    }
-    .btn-primary .arrow { font-size: 18px; transition: transform 0.2s; }
-    .btn-primary:hover .arrow { transform: translateX(4px); }
-
-    .btn-ghost {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      border: 1px solid rgba(191,169,125,0.3);
-      color: var(--pergaminho);
-      font-family: 'DM Sans', sans-serif;
-      font-weight: 300;
-      font-size: 13px;
-      letter-spacing: 0.06em;
-      padding: 12px 24px;
-      border-radius: 8px;
-      transition: border-color 0.25s, color 0.25s;
-    }
-    .btn-ghost:hover {
-      border-color: var(--cobre);
-      color: var(--dourado);
+      color: var(--cobre);
     }
 
-    /* ==============================
+    /* ─── DIVIDER ─────────────────────────────────────────── */
+    .rule {
+      width: 100%;
+      height: 1px;
+      background: var(--perg-07);
+    }
+
+    /* ─── SCROLL REVEAL ───────────────────────────────────── */
+    .reveal {
+      opacity: 0;
+      transform: translateY(28px);
+      transition: opacity 0.8s cubic-bezier(.22,.68,0,1.2), transform 0.8s cubic-bezier(.22,.68,0,1.2);
+    }
+    .reveal.visible {
+      opacity: 1;
+      transform: none;
+    }
+    .reveal-d1 { transition-delay: 0.1s; }
+    .reveal-d2 { transition-delay: 0.2s; }
+    .reveal-d3 { transition-delay: 0.3s; }
+    .reveal-d4 { transition-delay: 0.4s; }
+    .reveal-d5 { transition-delay: 0.5s; }
+
+
+    /* ══════════════════════════════════════════════════════
        NAV
-    ============================== */
+    ══════════════════════════════════════════════════════ */
     nav {
       position: fixed;
       top: 0; left: 0; right: 0;
       height: var(--nav-h);
       z-index: 100;
-      background: rgba(59,63,43,0.85);
-      backdrop-filter: blur(20px);
-      -webkit-backdrop-filter: blur(20px);
-      border-bottom: 1px solid var(--pergaminho-08);
+      background: rgba(11,10,7,0.92);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border-bottom: 1px solid var(--perg-07);
+      transition: background 0.3s;
     }
     .nav-inner {
+      max-width: 1080px;
+      margin: 0 auto;
+      padding: 0 52px;
       height: 100%;
       display: flex;
       align-items: center;
       justify-content: space-between;
     }
-    .logo {
-      font-family: 'DM Sans', sans-serif;
-      font-weight: 400;
-      font-size: 18px;
-      letter-spacing: -0.02em;
-      color: var(--pergaminho);
+    .logo-lockup {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 0;
+      line-height: 1;
+      user-select: none;
     }
-    .logo span { color: var(--cobre); }
+    .logo-lockup img {
+      width: 38px;
+      height: auto;
+    }
+    .logo-lockup .logo-name {
+      font-family: 'DM Sans', sans-serif;
+      font-weight: 300;
+      font-size: 16px;
+      letter-spacing: 0.12em;
+      color: var(--perg);
+      margin-top: 1px;
+    }
     .nav-links {
       display: flex;
       align-items: center;
-      gap: 40px;
+      gap: 36px;
       list-style: none;
     }
     .nav-links a {
-      font-size: 13px;
-      font-weight: 300;
-      letter-spacing: 0.04em;
-      color: var(--pergaminho-50);
+      font-size: 12px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      font-weight: 400;
+      color: var(--perg-40);
       transition: color 0.2s;
     }
-    .nav-links a:hover { color: var(--pergaminho); }
-
-    /* ==============================
-       HERO
-    ============================== */
-    .hero {
-      min-height: 100vh;
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      padding-top: var(--nav-h);
-      position: relative;
-      overflow: hidden;
+    .nav-links a:hover { color: var(--perg); }
+    .nav-cta {
+      font-size: 11px;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      font-weight: 400;
+      color: var(--cobre) !important;
+      border: 1px solid var(--cobre-30);
+      padding: 8px 20px;
+      transition: background 0.2s, color 0.2s !important;
     }
-    .hero-left {
+    .nav-cta:hover {
+      background: var(--cobre) !important;
+      color: var(--perg) !important;
+    }
+
+
+    /* ══════════════════════════════════════════════════════
+       HERO
+    ══════════════════════════════════════════════════════ */
+    #hero {
+      position: relative;
+      min-height: 100vh;
       display: flex;
       flex-direction: column;
-      justify-content: center;
-      padding: 80px 64px 80px 48px;
-      position: relative;
-      z-index: 2;
-    }
-    .hero-overline {
-      margin-bottom: 24px;
-    }
-    .hero-name {
-      font-family: 'Cormorant Garamond', serif;
-      font-weight: 300;
-      font-style: italic;
-      font-size: clamp(48px, 6vw, 88px);
-      line-height: 1.0;
-      color: var(--dourado);
-      margin-bottom: 8px;
-    }
-    .hero-sub {
-      font-family: 'DM Sans', sans-serif;
-      font-weight: 300;
-      font-size: clamp(14px, 1.5vw, 16px);
-      color: var(--pergaminho-50);
-      max-width: 420px;
-      line-height: 1.75;
-      margin-bottom: 48px;
-    }
-    .hero-tagline {
-      font-family: 'Caveat', cursive;
-      font-size: 22px;
-      color: var(--cobre);
-      margin-bottom: 16px;
-    }
-    .hero-cta-group {
-      display: flex;
-      align-items: center;
-      gap: 20px;
-      flex-wrap: wrap;
-    }
-    .hero-note {
-      font-size: 12px;
-      font-weight: 300;
-      color: var(--oliva-claro);
-      letter-spacing: 0.05em;
-    }
-    .hero-right {
-      position: relative;
+      justify-content: flex-end;
+      padding-top: var(--nav-h);
+      background: var(--bg-deep);
       overflow: hidden;
     }
-    .hero-right img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      object-position: top center;
-      filter: brightness(0.9) contrast(1.05);
-    }
-    .hero-right::after {
-      content: '';
+    .hero-bg-grid {
       position: absolute;
       inset: 0;
-      background: linear-gradient(to right, var(--oliva) 0%, transparent 25%);
+      background-image:
+        linear-gradient(rgba(232,224,208,0.025) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(232,224,208,0.025) 1px, transparent 1px);
+      background-size: 80px 80px;
       pointer-events: none;
     }
-    .hero-scroll {
+    .hero-bg-radial {
       position: absolute;
-      bottom: 40px;
-      left: 48px;
+      inset: 0;
+      background: radial-gradient(ellipse 70% 60% at 50% 30%, rgba(160,97,43,0.07) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    .hero-content {
+      position: relative;
+      z-index: 2;
+      padding: 80px 52px 96px;
+      max-width: 1080px;
+      margin: 0 auto;
+      width: 100%;
+    }
+    .hero-label {
+      margin-bottom: 32px;
+    }
+    .hero-headline {
+      font-size: clamp(52px, 7vw, 96px);
+      max-width: 820px;
+      margin-bottom: 32px;
+    }
+    .hero-sub {
+      font-size: 16px;
+      max-width: 480px;
+      margin-bottom: 52px;
+      color: var(--perg-70);
+      line-height: 1.75;
+      font-weight: 300;
+    }
+    .hero-actions {
       display: flex;
       align-items: center;
-      gap: 12px;
+      gap: 28px;
+    }
+    .btn-primary {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      background: var(--cobre);
+      color: var(--perg);
+      font-family: 'DM Sans', sans-serif;
+      font-weight: 400;
       font-size: 11px;
-      letter-spacing: 0.15em;
+      letter-spacing: 0.2em;
       text-transform: uppercase;
-      color: var(--oliva-claro);
+      padding: 16px 36px;
+      border: none;
+      cursor: pointer;
+      transition: background 0.2s, transform 0.15s;
     }
-    .hero-scroll-line {
-      width: 40px;
-      height: 1px;
-      background: var(--oliva-claro);
+    .btn-primary:hover {
+      background: #b86e32;
+      transform: translateY(-1px);
     }
-
-    /* ==============================
-       STATS BAR
-    ============================== */
-    .stats-bar {
-      background: var(--oliva-medio);
-      border-top: 1px solid var(--pergaminho-08);
-      border-bottom: 1px solid var(--pergaminho-08);
-      padding: 32px 0;
+    .btn-ghost {
+      font-size: 11px;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--perg-40);
+      border-bottom: 1px solid var(--perg-15);
+      padding-bottom: 2px;
+      transition: color 0.2s, border-color 0.2s;
     }
-    .stats-inner {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
+    .btn-ghost:hover {
+      color: var(--perg);
+      border-color: var(--perg-40);
     }
-    .stat-item {
-      padding: 0 40px;
-      border-right: 1px solid var(--pergaminho-08);
-    }
-    .stat-item:last-child { border-right: none; }
-    .stat-number {
-      font-family: 'Cormorant Garamond', serif;
-      font-weight: 300;
-      font-style: italic;
-      font-size: 48px;
-      color: var(--dourado);
-      line-height: 1;
-      margin-bottom: 6px;
-    }
-    .stat-label {
-      font-size: 12px;
-      font-weight: 300;
-      letter-spacing: 0.08em;
-      color: var(--pergaminho-50);
-    }
-
-    /* ==============================
-       PROBLEM SECTION
-    ============================== */
-    .section-problem {
-      background: var(--cacau);
-      padding: 120px 0;
-    }
-    .problem-header {
+    .hero-tagline {
+      font-size: 22px;
+      opacity: 0.85;
+      display: block;
       margin-bottom: 64px;
     }
-    .problem-header .headline {
-      font-size: clamp(36px, 4.5vw, 60px);
-      max-width: 700px;
-      margin-top: 16px;
-    }
-    .problem-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 2px;
-      background: var(--pergaminho-08);
-    }
-    .problem-item {
-      background: var(--cacau);
-      padding: 40px;
+    .hero-bottom {
       position: relative;
-      transition: background 0.3s;
+      z-index: 2;
+      border-top: 1px solid var(--perg-07);
+      padding: 20px 52px;
+      max-width: 1080px;
+      margin: 0 auto;
+      width: 100%;
+      display: flex;
+      gap: 48px;
     }
-    .problem-item:hover { background: #3a2a1c; }
-    .problem-quote {
-      font-family: 'Cormorant Garamond', serif;
-      font-style: italic;
-      font-size: 22px;
-      color: var(--pergaminho);
-      line-height: 1.4;
-      margin-bottom: 16px;
+    .hero-stat {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
     }
-    .problem-quote::before {
-      content: '"';
-      color: var(--cobre);
-      font-size: 48px;
-      line-height: 1;
-      display: block;
-      margin-bottom: 8px;
-      font-style: normal;
-    }
-    .problem-desc {
-      font-size: 13px;
-      font-weight: 300;
-      color: var(--pergaminho-50);
-      line-height: 1.65;
-    }
-    .problem-validation {
-      margin-top: 64px;
-      padding: 48px;
-      border: 1px solid var(--pergaminho-08);
-      border-left: 3px solid var(--cobre);
-      background: rgba(160,97,43,0.05);
-    }
-    .problem-validation p {
+    .hero-stat-n {
       font-family: 'Cormorant Garamond', serif;
       font-style: italic;
       font-size: 28px;
-      color: var(--pergaminho);
-      line-height: 1.45;
-    }
-
-    /* ==============================
-       AGITATION
-    ============================== */
-    .section-agitation {
-      padding: 80px 0;
-      background: var(--cacau);
-      border-top: 1px solid var(--pergaminho-08);
-    }
-    .agitation-inner {
-      display: grid;
-      grid-template-columns: 1fr 2fr;
-      gap: 80px;
-      align-items: start;
-    }
-    .agitation-label {
-      padding-top: 6px;
-    }
-    .agitation-label .headline {
-      font-size: 40px;
-      margin-top: 12px;
-    }
-    .agitation-text p {
-      font-size: 16px;
+      color: var(--dourado);
       font-weight: 300;
-      color: var(--pergaminho-50);
-      line-height: 1.8;
-      margin-bottom: 24px;
     }
-    .agitation-text p:last-child { margin-bottom: 0; }
-    .agitation-text strong {
-      color: var(--pergaminho);
-      font-weight: 400;
-    }
-    .agitation-cta {
-      margin-top: 40px;
+    .hero-stat-label {
+      font-size: 10px;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--perg-40);
     }
 
-    /* ==============================
-       ABOUT / CREDIBILITY
-    ============================== */
-    .section-about {
-      padding: 0;
-      background: var(--oliva);
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      min-height: 700px;
+
+    /* ══════════════════════════════════════════════════════
+       SECTION BASE
+    ══════════════════════════════════════════════════════ */
+    section {
+      padding: 140px 0;
     }
-    .about-photo {
+    .section-header {
+      margin-bottom: 72px;
+    }
+    .section-header .label {
+      margin-bottom: 20px;
+      display: block;
+    }
+    .section-headline {
+      font-size: clamp(36px, 4.5vw, 64px);
+    }
+
+
+    /* ══════════════════════════════════════════════════════
+       PARA QUEM É
+    ══════════════════════════════════════════════════════ */
+    #para-quem {
+      background: var(--bg-base);
+    }
+    .criteria-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 2px;
+      margin-top: 64px;
+    }
+    .criteria-card {
+      background: var(--bg-card);
+      border: 1px solid var(--perg-07);
+      padding: 48px 40px;
+      position: relative;
+      transition: border-color 0.3s;
+    }
+    .criteria-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 2px;
+      background: linear-gradient(90deg, var(--cobre) 0%, transparent 100%);
+      opacity: 0;
+      transition: opacity 0.3s;
+    }
+    .criteria-card:hover { border-color: var(--perg-15); }
+    .criteria-card:hover::before { opacity: 1; }
+    .criteria-n {
+      font-family: 'Cormorant Garamond', serif;
+      font-style: italic;
+      font-size: 44px;
+      color: var(--cobre);
+      opacity: 0.5;
+      line-height: 1;
+      margin-bottom: 24px;
+      font-weight: 300;
+    }
+    .criteria-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-style: italic;
+      font-size: 24px;
+      color: var(--perg);
+      font-weight: 300;
+      line-height: 1.2;
+      margin-bottom: 16px;
+    }
+    .criteria-desc {
+      font-size: 14px;
+      color: var(--perg-40);
+      line-height: 1.75;
+      font-weight: 300;
+    }
+    .not-criteria {
+      margin-top: 64px;
+      padding: 40px 48px;
+      border: 1px solid var(--perg-07);
+      background: var(--bg-raised);
+      display: flex;
+      align-items: center;
+      gap: 40px;
+    }
+    .not-criteria-label {
+      font-size: 10px;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--perg-40);
+      flex-shrink: 0;
+    }
+    .not-criteria-text {
+      font-family: 'Cormorant Garamond', serif;
+      font-style: italic;
+      font-size: 22px;
+      color: var(--perg-70);
+      font-weight: 300;
+      line-height: 1.4;
+    }
+
+
+    /* ══════════════════════════════════════════════════════
+       O QUE É
+    ══════════════════════════════════════════════════════ */
+    #o-que-e {
+      background: var(--bg-deep);
       position: relative;
       overflow: hidden;
     }
-    .about-photo img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      object-position: top center;
-      filter: brightness(0.85) saturate(0.9);
-    }
-    .about-photo::after {
+    #o-que-e::before {
       content: '';
       position: absolute;
-      inset: 0;
-      background: linear-gradient(to left, var(--oliva) 0%, transparent 30%);
+      top: 0; right: 0;
+      width: 40%;
+      height: 100%;
+      background: radial-gradient(ellipse 80% 80% at 80% 50%, rgba(160,97,43,0.05), transparent);
+      pointer-events: none;
     }
-    .about-content {
-      padding: 100px 64px 100px 64px;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
+    .pillars {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 0;
+      margin-top: 72px;
+      border: 1px solid var(--perg-07);
     }
-    .about-content .overline { margin-bottom: 16px; }
-    .about-content .headline {
-      font-size: clamp(36px, 3.5vw, 52px);
-      margin-bottom: 32px;
+    .pillar {
+      padding: 56px 48px;
+      border-right: 1px solid var(--perg-07);
+      position: relative;
     }
-    .about-content p {
-      font-size: 15px;
-      font-weight: 300;
-      color: var(--pergaminho-50);
-      line-height: 1.8;
-      margin-bottom: 20px;
-    }
-    .about-content p:last-of-type { margin-bottom: 40px; }
-    .about-content strong { color: var(--pergaminho); font-weight: 400; }
-    .about-quote {
+    .pillar:last-child { border-right: none; }
+    .pillar-icon {
       font-family: 'Cormorant Garamond', serif;
       font-style: italic;
-      font-size: 20px;
-      color: var(--dourado);
-      line-height: 1.5;
-      border-left: 2px solid var(--cobre);
-      padding-left: 24px;
-      margin: 32px 0;
-    }
-
-    /* ==============================
-       SOLUTION
-    ============================== */
-    .section-solution {
-      padding: 120px 0;
-      background: var(--oliva-medio);
-    }
-    .solution-inner {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 80px;
-      align-items: center;
-    }
-    .solution-left .overline { margin-bottom: 16px; }
-    .solution-left .headline {
-      font-size: clamp(36px, 4vw, 56px);
-      margin-bottom: 24px;
-    }
-    .solution-left p {
-      font-size: 15px;
-      color: var(--pergaminho-50);
-      line-height: 1.8;
-      margin-bottom: 20px;
-    }
-    .solution-left strong { color: var(--pergaminho); font-weight: 400; }
-    .solution-tags {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 10px;
-      margin-top: 32px;
-    }
-    .solution-tag {
-      padding: 8px 16px;
-      border: 1px solid var(--pergaminho-20);
-      border-radius: 8px;
-      font-size: 12px;
-      letter-spacing: 0.06em;
-      color: var(--pergaminho-50);
-    }
-    .solution-right {
-      background: var(--oliva);
-      padding: 48px;
-      border: 1px solid var(--pergaminho-08);
-    }
-    .solution-card-label {
-      font-size: 11px;
-      letter-spacing: 0.15em;
-      text-transform: uppercase;
-      color: var(--oliva-claro);
-      margin-bottom: 24px;
-    }
-    .solution-items {
-      list-style: none;
-      display: flex;
-      flex-direction: column;
-      gap: 16px;
-    }
-    .solution-items li {
-      display: flex;
-      align-items: flex-start;
-      gap: 16px;
-      font-size: 14px;
+      font-size: 72px;
       font-weight: 300;
-      color: var(--pergaminho-50);
-      line-height: 1.6;
-    }
-    .solution-items li::before {
-      content: '';
+      color: var(--cobre);
+      opacity: 0.25;
+      line-height: 1;
+      margin-bottom: 32px;
       display: block;
-      width: 6px;
-      height: 6px;
-      border-radius: 50%;
-      background: var(--cobre);
-      margin-top: 8px;
-      flex-shrink: 0;
+      letter-spacing: -0.03em;
     }
-    .solution-items li strong { color: var(--pergaminho); font-weight: 400; }
-
-    /* ==============================
-       METHODOLOGY (STEPS)
-    ============================== */
-    .section-methodology {
-      padding: 120px 0;
-      background: var(--oliva);
-    }
-    .methodology-header {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 80px;
-      align-items: end;
-      margin-bottom: 80px;
-    }
-    .methodology-header .headline {
-      font-size: clamp(36px, 4vw, 56px);
-      margin-top: 16px;
-    }
-    .methodology-header-right p {
-      font-size: 15px;
-      color: var(--pergaminho-50);
-      line-height: 1.8;
-    }
-    .methodology-header-right .tagline {
-      font-size: 22px;
+    .pillar-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-style: italic;
+      font-size: 26px;
+      color: var(--perg);
+      font-weight: 300;
+      line-height: 1.2;
       margin-bottom: 16px;
     }
-    .steps-list {
+    .pillar-text {
+      font-size: 14px;
+      color: var(--perg-40);
+      line-height: 1.8;
+      font-weight: 300;
+    }
+    .pillar-detail {
+      margin-top: 32px;
+      padding-top: 24px;
+      border-top: 1px solid var(--perg-07);
+      font-size: 10px;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--cobre);
+      opacity: 0.6;
+    }
+    .differentials {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 2px;
+      margin-top: 2px;
+    }
+    .diff-card {
+      background: var(--bg-raised);
+      border: 1px solid var(--perg-07);
+      padding: 32px 40px;
+      display: flex;
+      align-items: flex-start;
+      gap: 20px;
+    }
+    .diff-icon {
+      width: 20px;
+      height: 20px;
+      flex-shrink: 0;
+      margin-top: 2px;
+      position: relative;
+    }
+    .diff-icon::before {
+      content: '×';
+      font-size: 16px;
+      color: var(--perg-40);
+      position: absolute;
+    }
+    .diff-text {
+      font-size: 13px;
+      color: var(--perg-40);
+      line-height: 1.7;
+    }
+    .diff-text strong {
+      display: block;
+      color: var(--perg-70);
+      font-weight: 400;
+      font-size: 14px;
+      margin-bottom: 4px;
+    }
+
+
+    /* ══════════════════════════════════════════════════════
+       MÉTODO
+    ══════════════════════════════════════════════════════ */
+    #metodo {
+      background: var(--bg-base);
+    }
+    .steps {
       display: flex;
       flex-direction: column;
       gap: 0;
-      border-top: 1px solid var(--pergaminho-08);
+      margin-top: 72px;
     }
     .step {
       display: grid;
       grid-template-columns: 80px 1fr 1fr;
-      gap: 40px;
       align-items: start;
+      gap: 0;
       padding: 48px 0;
-      border-bottom: 1px solid var(--pergaminho-08);
-      transition: background 0.3s;
-      position: relative;
+      border-top: 1px solid var(--perg-07);
+      transition: background 0.2s;
     }
-    .step:hover { background: var(--pergaminho-08); padding-left: 16px; padding-right: 16px; margin-left: -16px; margin-right: -16px; }
-    .step-number {
+    .step:hover {
+      background: var(--perg-03);
+    }
+    .step-n {
       font-family: 'Cormorant Garamond', serif;
       font-style: italic;
-      font-size: 56px;
-      color: var(--pergaminho-08);
+      font-size: 52px;
+      font-weight: 300;
+      color: var(--cobre);
+      opacity: 0.3;
       line-height: 1;
       padding-top: 4px;
-      transition: color 0.3s;
     }
-    .step:hover .step-number { color: var(--cobre); opacity: 0.4; }
-    .step-left .step-title {
+    .step-title {
       font-family: 'Cormorant Garamond', serif;
-      font-weight: 400;
+      font-style: italic;
       font-size: 28px;
-      color: var(--pergaminho);
-      margin-bottom: 8px;
+      color: var(--perg);
+      font-weight: 300;
       line-height: 1.2;
+      padding-right: 40px;
     }
-    .step-left .step-subtitle {
-      font-size: 11px;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-      color: var(--cobre);
-    }
-    .step-right p {
+    .step-desc {
       font-size: 14px;
+      color: var(--perg-40);
+      line-height: 1.8;
       font-weight: 300;
-      color: var(--pergaminho-50);
-      line-height: 1.75;
-      margin-bottom: 12px;
     }
-    .step-right p:last-child { margin-bottom: 0; }
-    .step-right strong { color: var(--pergaminho); font-weight: 400; }
-    .step-deliverable {
-      margin-top: 16px;
-      padding: 12px 16px;
-      background: var(--pergaminho-08);
-      border-left: 2px solid var(--cobre);
-      font-size: 12px;
-      letter-spacing: 0.04em;
-      color: var(--dourado);
+    .step:last-child {
+      border-bottom: 1px solid var(--perg-07);
     }
 
-    /* ==============================
-       BW PHOTO DIVIDER
-    ============================== */
-    .photo-divider {
-      height: 600px;
-      position: relative;
-      overflow: hidden;
-    }
-    .photo-divider img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      object-position: center 20%;
-    }
-    .photo-divider-overlay {
-      position: absolute;
-      inset: 0;
-      background: linear-gradient(to right, var(--oliva) 0%, rgba(59,63,43,0.4) 50%, var(--oliva) 100%);
-      display: flex;
-      align-items: center;
-      justify-content: flex-start;
-      padding: 0 80px;
-    }
-    .photo-divider-text {
-      max-width: 500px;
-    }
-    .photo-divider-text .headline {
-      font-size: clamp(36px, 4vw, 60px);
-      margin-top: 16px;
-      margin-bottom: 24px;
-    }
-    .photo-divider-text p {
-      font-size: 15px;
-      color: var(--pergaminho-50);
-      line-height: 1.75;
-      margin-bottom: 32px;
-    }
 
-    /* ==============================
-       BENEFITS GRID
-    ============================== */
-    .section-benefits {
-      padding: 120px 0;
-      background: var(--oliva-medio);
+    /* ══════════════════════════════════════════════════════
+       SOBRE
+    ══════════════════════════════════════════════════════ */
+    #sobre {
+      background: var(--bg-deep);
     }
-    .benefits-header { margin-bottom: 64px; }
-    .benefits-header .headline {
-      font-size: clamp(36px, 4vw, 52px);
-      margin-top: 16px;
-      max-width: 600px;
-    }
-    .benefits-grid {
+    .sobre-grid {
       display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 2px;
-      background: var(--pergaminho-08);
-    }
-    .benefit-card {
-      background: var(--oliva-medio);
-      padding: 40px;
-      transition: background 0.3s;
-      position: relative;
-      overflow: hidden;
-    }
-    .benefit-card:hover { background: var(--oliva); }
-    .benefit-card::before {
-      content: '';
-      position: absolute;
-      top: 0; left: 0;
-      width: 3px;
-      height: 0;
-      background: var(--cobre);
-      transition: height 0.3s;
-    }
-    .benefit-card:hover::before { height: 100%; }
-    .benefit-icon {
-      width: 40px;
-      height: 40px;
-      border: 1px solid var(--pergaminho-20);
-      border-radius: 8px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      margin-bottom: 24px;
-      font-size: 18px;
-    }
-    .benefit-title {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: 22px;
-      font-weight: 400;
-      color: var(--pergaminho);
-      margin-bottom: 12px;
-      line-height: 1.3;
-    }
-    .benefit-text {
-      font-size: 13px;
-      font-weight: 300;
-      color: var(--pergaminho-50);
-      line-height: 1.7;
-    }
-
-    /* ==============================
-       TESTIMONIALS
-    ============================== */
-    .section-testimonials {
-      padding: 120px 0;
-      background: var(--cacau);
-    }
-    .testimonials-header {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
+      grid-template-columns: 420px 1fr;
       gap: 80px;
-      align-items: end;
-      margin-bottom: 64px;
-    }
-    .testimonials-header .headline {
-      font-size: clamp(36px, 4vw, 52px);
-      margin-top: 16px;
-    }
-    .testimonials-header-right p {
-      font-size: 14px;
-      color: var(--pergaminho-50);
-      line-height: 1.75;
-    }
-    .testimonials-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 2px;
-      background: var(--pergaminho-08);
-    }
-    .testimonial-card {
-      background: var(--cacau);
-      padding: 40px;
-      display: flex;
-      flex-direction: column;
-      transition: background 0.3s;
-    }
-    .testimonial-card:hover { background: #3a2a1c; }
-    .testimonial-stars {
-      display: flex;
-      gap: 4px;
-      margin-bottom: 24px;
-    }
-    .testimonial-stars span {
-      color: var(--cobre);
-      font-size: 14px;
-    }
-    .testimonial-text {
-      font-family: 'Cormorant Garamond', serif;
-      font-style: italic;
-      font-size: 19px;
-      color: var(--pergaminho);
-      line-height: 1.5;
-      flex: 1;
-      margin-bottom: 32px;
-    }
-    .testimonial-author {
-      display: flex;
-      align-items: center;
-      gap: 14px;
-      border-top: 1px solid var(--pergaminho-08);
-      padding-top: 24px;
-    }
-    .testimonial-avatar {
-      width: 40px;
-      height: 40px;
-      border-radius: 50%;
-      background: var(--oliva-claro);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 14px;
-      font-weight: 400;
-      color: var(--pergaminho);
-      flex-shrink: 0;
-    }
-    .testimonial-name {
-      font-size: 13px;
-      font-weight: 400;
-      color: var(--pergaminho);
-      margin-bottom: 2px;
-    }
-    .testimonial-role {
-      font-size: 11px;
-      letter-spacing: 0.06em;
-      color: var(--oliva-claro);
-    }
-    .testimonials-note {
-      margin-top: 32px;
-      font-size: 12px;
-      color: var(--oliva-claro);
-      font-style: italic;
-      text-align: center;
-    }
-
-    /* ==============================
-       FAQ
-    ============================== */
-    .section-faq {
-      padding: 120px 0;
-      background: var(--oliva);
-    }
-    .faq-header {
-      display: grid;
-      grid-template-columns: 1fr 2fr;
-      gap: 80px;
-      margin-bottom: 64px;
       align-items: start;
     }
-    .faq-header .headline {
-      font-size: clamp(32px, 3.5vw, 48px);
-      margin-top: 16px;
+    .sobre-photo {
+      position: relative;
     }
-    .faq-header p {
+    .sobre-photo img {
+      width: 100%;
+      height: 560px;
+      object-fit: cover;
+      object-position: center top;
+      filter: grayscale(20%) contrast(1.05);
+    }
+    .sobre-photo::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to right, transparent 60%, var(--bg-deep));
+      pointer-events: none;
+    }
+    .sobre-photo-frame {
+      position: absolute;
+      top: -12px;
+      left: -12px;
+      right: 12px;
+      bottom: 12px;
+      border: 1px solid var(--perg-07);
+      pointer-events: none;
+    }
+    .sobre-content {
+      padding-top: 8px;
+    }
+    .sobre-headline {
+      font-size: clamp(32px, 3vw, 48px);
+      margin-bottom: 32px;
+      margin-top: 24px;
+    }
+    .sobre-text {
       font-size: 15px;
-      color: var(--pergaminho-50);
+      color: var(--perg-70);
+      line-height: 1.85;
+      font-weight: 300;
+      margin-bottom: 20px;
+    }
+    .sobre-credentials {
+      margin-top: 40px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+    .cred {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      font-size: 13px;
+      color: var(--perg-40);
+    }
+    .cred::before {
+      content: '';
+      width: 20px;
+      height: 1px;
+      background: var(--cobre);
+      opacity: 0.5;
+      flex-shrink: 0;
+    }
+
+
+    /* ══════════════════════════════════════════════════════
+       FORMULÁRIO DE APLICAÇÃO
+    ══════════════════════════════════════════════════════ */
+    #aplicacao {
+      background: var(--bg-deep);
+      border-top: 1px solid var(--perg-07);
+      padding: 120px 0;
+    }
+    .form-wrap {
+      max-width: 720px;
+      margin: 0 auto;
+      padding: 0 52px;
+    }
+    .form-box {
+      background: var(--bg-card);
+      border: 1px solid var(--perg-07);
+      padding: 64px 56px 56px;
+    }
+    .form-header {
+      text-align: center;
+      margin-bottom: 72px;
+    }
+    .form-header .label {
+      justify-content: center;
+      display: block;
+      margin-bottom: 20px;
+    }
+    .form-headline {
+      font-size: clamp(36px, 4vw, 58px);
+      margin-bottom: 20px;
+    }
+    .form-sub {
+      font-size: 14px;
+      color: var(--perg-40);
+      line-height: 1.75;
+      max-width: 480px;
+      margin: 0 auto;
+    }
+    form {
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+    }
+    .form-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0 2px;
+    }
+    .form-field {
+      position: relative;
+      border-bottom: 1px solid var(--perg-15);
+      padding: 28px 0 20px;
+      margin-bottom: 2px;
+      transition: border-color 0.25s;
+    }
+    .form-field:focus-within {
+      border-color: var(--cobre);
+    }
+    .form-field label {
+      display: block;
+      font-size: 10px;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--perg-40);
+      margin-bottom: 10px;
+      transition: color 0.25s;
+    }
+    .form-field:focus-within label {
+      color: var(--cobre);
+    }
+    .form-field input,
+    .form-field select,
+    .form-field textarea {
+      width: 100%;
+      background: transparent;
+      border: none;
+      outline: none;
+      font-family: 'DM Sans', sans-serif;
+      font-weight: 300;
+      font-size: 15px;
+      color: var(--perg);
+      appearance: none;
+      -webkit-appearance: none;
+    }
+    .form-field input::placeholder,
+    .form-field textarea::placeholder {
+      color: var(--perg-15);
+    }
+    .form-field select {
+      cursor: pointer;
+      color: var(--perg-70);
+    }
+    .form-field select option {
+      background: var(--bg-base);
+      color: var(--perg);
+    }
+    .form-field textarea {
+      resize: none;
+      min-height: 100px;
       line-height: 1.75;
     }
-    .faq-list {
-      border-top: 1px solid var(--pergaminho-08);
+    .form-field-full {
+      border-bottom: 1px solid var(--perg-15);
+      padding: 28px 0 20px;
+      margin-bottom: 2px;
+      transition: border-color 0.25s;
     }
-    .faq-item {
-      border-bottom: 1px solid var(--pergaminho-08);
-    }
-    .faq-question {
-      width: 100%;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 32px 0;
-      text-align: left;
-      cursor: pointer;
-      background: none;
-      gap: 24px;
-    }
-    .faq-question-text {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: 22px;
-      font-weight: 400;
-      color: var(--pergaminho);
-      line-height: 1.3;
-    }
-    .faq-toggle {
-      width: 32px;
-      height: 32px;
-      border: 1px solid var(--pergaminho-20);
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      flex-shrink: 0;
-      color: var(--pergaminho-50);
-      font-size: 18px;
-      transition: all 0.3s;
-    }
-    .faq-item.open .faq-toggle {
+    .form-field-full:focus-within {
       border-color: var(--cobre);
-      color: var(--cobre);
-      transform: rotate(45deg);
     }
-    .faq-answer {
-      overflow: hidden;
-      max-height: 0;
-      transition: max-height 0.4s ease;
-    }
-    .faq-item.open .faq-answer { max-height: 400px; }
-    .faq-answer-inner {
-      padding-bottom: 32px;
-      font-size: 14px;
-      font-weight: 300;
-      color: var(--pergaminho-50);
-      line-height: 1.8;
-      max-width: 680px;
-    }
-    .faq-answer-inner strong { color: var(--pergaminho); font-weight: 400; }
-
-    /* ==============================
-       OFFER / PRICING
-    ============================== */
-    .section-offer {
-      padding: 120px 0;
-      background: var(--oliva-medio);
-    }
-    .offer-header { margin-bottom: 64px; }
-    .offer-header .headline {
-      font-size: clamp(36px, 4vw, 52px);
-      margin-top: 16px;
-    }
-    .offer-grid {
-      display: grid;
-      grid-template-columns: 2fr 1fr;
-      gap: 2px;
-      background: var(--pergaminho-08);
-    }
-    .offer-items {
-      background: var(--oliva);
-      padding: 56px;
-    }
-    .offer-items-label {
-      font-size: 11px;
-      letter-spacing: 0.15em;
+    .form-field-full label {
+      display: block;
+      font-size: 10px;
+      letter-spacing: 0.18em;
       text-transform: uppercase;
-      color: var(--oliva-claro);
-      margin-bottom: 36px;
+      color: var(--perg-40);
+      margin-bottom: 10px;
+      transition: color 0.25s;
     }
-    .offer-item-list {
-      list-style: none;
-      display: flex;
-      flex-direction: column;
-      gap: 20px;
-    }
-    .offer-item {
-      display: flex;
-      align-items: flex-start;
-      gap: 16px;
-    }
-    .offer-item-check {
-      width: 20px;
-      height: 20px;
-      border-radius: 50%;
-      background: rgba(160,97,43,0.15);
-      border: 1px solid var(--cobre);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      flex-shrink: 0;
-      margin-top: 2px;
-      font-size: 11px;
+    .form-field-full:focus-within label {
       color: var(--cobre);
     }
-    .offer-item-text { flex: 1; }
-    .offer-item-title {
-      font-size: 15px;
-      font-weight: 400;
-      color: var(--pergaminho);
-      margin-bottom: 4px;
-    }
-    .offer-item-desc {
-      font-size: 13px;
-      font-weight: 300;
-      color: var(--pergaminho-50);
-      line-height: 1.6;
-    }
-    .offer-pricing {
-      background: var(--oliva-medio);
-      padding: 56px 40px;
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-    }
-    .offer-price-label {
-      font-size: 11px;
-      letter-spacing: 0.15em;
-      text-transform: uppercase;
-      color: var(--oliva-claro);
-      margin-bottom: 16px;
-    }
-    .offer-price {
-      font-family: 'Cormorant Garamond', serif;
-      font-style: italic;
-      font-size: 56px;
-      color: var(--dourado);
-      line-height: 1;
-      margin-bottom: 8px;
-    }
-    .offer-price-period {
-      font-size: 13px;
-      color: var(--pergaminho-50);
-      margin-bottom: 24px;
-    }
-    .offer-compare {
-      font-size: 12px;
-      color: var(--oliva-claro);
-      line-height: 1.6;
-      padding: 16px;
-      border: 1px solid var(--pergaminho-08);
-      margin-bottom: 32px;
-    }
-    .offer-compare strong { color: var(--pergaminho-50); font-weight: 400; }
-    .btn-primary-full {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 10px;
+    .form-field-full input,
+    .form-field-full select,
+    .form-field-full textarea {
       width: 100%;
-      background: var(--cobre);
-      color: var(--pergaminho);
+      background: transparent;
+      border: none;
+      outline: none;
       font-family: 'DM Sans', sans-serif;
-      font-weight: 400;
+      font-weight: 300;
+      font-size: 15px;
+      color: var(--perg);
+      appearance: none;
+      -webkit-appearance: none;
+    }
+    .form-field-full input::placeholder,
+    .form-field-full textarea::placeholder {
+      color: var(--perg-15);
+    }
+    .form-field-full textarea {
+      resize: none;
+      min-height: 100px;
+      line-height: 1.75;
+    }
+    .form-field-full select {
+      cursor: pointer;
+      color: var(--perg-70);
+    }
+    .form-field-full select option {
+      background: var(--bg-base);
+      color: var(--perg);
+    }
+    .radio-group {
+      display: flex;
+      gap: 0;
+      margin-top: 4px;
+    }
+    .radio-opt {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      cursor: pointer;
+      padding: 10px 20px 10px 0;
       font-size: 14px;
-      letter-spacing: 0.06em;
-      padding: 18px 24px;
-      border-radius: 8px;
-      transition: background 0.25s;
+      color: var(--perg-40);
+      transition: color 0.2s;
     }
-    .btn-primary-full:hover { background: #b86e30; }
-    .offer-guarantee {
-      margin-top: 16px;
-      font-size: 11px;
-      color: var(--oliva-claro);
-      text-align: center;
-      line-height: 1.6;
+    .radio-opt input[type="radio"] {
+      display: none;
     }
-    .offer-slots {
-      font-size: 12px;
-      color: var(--cobre);
-      letter-spacing: 0.06em;
-      text-align: center;
-      margin-bottom: 24px;
-    }
-
-    /* ==============================
-       FINAL CTA
-    ============================== */
-    .section-cta {
-      padding: 160px 0;
-      background: var(--cacau);
-      text-align: center;
+    .radio-dot {
+      width: 14px;
+      height: 14px;
+      border: 1px solid var(--perg-15);
+      border-radius: 50%;
       position: relative;
-      overflow: hidden;
+      flex-shrink: 0;
+      transition: border-color 0.2s;
     }
-    .cta-bg-text {
+    .radio-opt input[type="radio"]:checked + .radio-dot {
+      border-color: var(--cobre);
+    }
+    .radio-opt input[type="radio"]:checked + .radio-dot::after {
+      content: '';
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--cobre);
       position: absolute;
       top: 50%;
       left: 50%;
       transform: translate(-50%, -50%);
-      font-family: 'Cormorant Garamond', serif;
-      font-size: 240px;
-      font-style: italic;
-      color: rgba(232,224,208,0.02);
-      white-space: nowrap;
-      pointer-events: none;
-      user-select: none;
     }
-    .cta-inner { position: relative; z-index: 2; }
-    .cta-inner .overline { margin-bottom: 24px; }
-    .cta-inner .headline {
-      font-size: clamp(40px, 6vw, 80px);
-      margin-bottom: 24px;
+    .radio-opt:has(input:checked) {
+      color: var(--perg-70);
     }
-    .cta-inner .tagline {
-      font-size: 24px;
-      margin-bottom: 48px;
-      display: block;
+    .form-submit-area {
+      margin-top: 56px;
+      text-align: center;
     }
-    .cta-inner p {
-      font-size: 15px;
-      color: var(--pergaminho-50);
-      line-height: 1.75;
-      max-width: 500px;
-      margin: 0 auto 48px;
-    }
-    .cta-buttons {
-      display: flex;
+    .btn-submit {
+      display: inline-flex;
       align-items: center;
+      gap: 12px;
+      background: var(--cobre);
+      color: var(--perg);
+      font-family: 'DM Sans', sans-serif;
+      font-weight: 400;
+      font-size: 11px;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      padding: 20px 52px;
+      border: none;
+      cursor: pointer;
+      transition: background 0.2s, transform 0.15s;
+      width: 100%;
       justify-content: center;
-      gap: 20px;
-      flex-wrap: wrap;
     }
-    .cta-note {
+    .btn-submit:hover {
+      background: #b86e32;
+      transform: translateY(-1px);
+    }
+    .btn-submit-arrow {
+      font-size: 14px;
+      opacity: 0.7;
+    }
+    .form-notice {
       margin-top: 24px;
       font-size: 12px;
-      color: var(--oliva-claro);
-      letter-spacing: 0.06em;
+      color: var(--perg-15);
+      text-align: center;
+      letter-spacing: 0.05em;
+      line-height: 1.7;
+    }
+    .form-success {
+      display: none;
+      text-align: center;
+      padding: 80px 0;
+    }
+    .form-success .headline {
+      font-size: 48px;
+      margin-bottom: 16px;
+    }
+    .form-success p {
+      font-size: 15px;
+      color: var(--perg-40);
+      line-height: 1.75;
     }
 
-    /* ==============================
+
+    /* ══════════════════════════════════════════════════════
        FOOTER
-    ============================== */
+    ══════════════════════════════════════════════════════ */
     footer {
-      background: var(--cacau);
-      border-top: 1px solid var(--pergaminho-08);
-      padding: 40px 0;
+      background: var(--bg-deep);
+      border-top: 1px solid var(--perg-07);
+      padding: 48px 0;
     }
     .footer-inner {
+      max-width: 1080px;
+      margin: 0 auto;
+      padding: 0 52px;
       display: flex;
       align-items: center;
       justify-content: space-between;
     }
-    .footer-logo {
-      font-family: 'DM Sans', sans-serif;
-      font-weight: 400;
-      font-size: 16px;
-      color: var(--pergaminho);
+    .footer-copy {
+      font-size: 11px;
+      color: var(--perg-15);
+      letter-spacing: 0.08em;
     }
-    .footer-logo span { color: var(--cobre); }
     .footer-tagline {
       font-family: 'Caveat', cursive;
-      font-size: 16px;
-      color: var(--bronze);
-    }
-    .footer-copy {
-      font-size: 12px;
-      color: var(--oliva-claro);
-      letter-spacing: 0.04em;
+      font-size: 18px;
+      color: var(--cobre);
+      opacity: 0.5;
     }
 
-    /* ==============================
-       STICKY CTA (mobile bar)
-    ============================== */
-    .sticky-cta {
-      display: none;
-    }
 
-    /* ==============================
-       SCROLL ANIMATION
-    ============================== */
-    .reveal {
-      opacity: 0;
-      transform: translateY(24px);
-      transition: opacity 0.7s ease, transform 0.7s ease;
-    }
-    .reveal.visible {
-      opacity: 1;
-      transform: translateY(0);
-    }
-    .reveal-delay-1 { transition-delay: 0.1s; }
-    .reveal-delay-2 { transition-delay: 0.2s; }
-    .reveal-delay-3 { transition-delay: 0.3s; }
-
-    /* ==============================
+    /* ══════════════════════════════════════════════════════
        RESPONSIVE
-    ============================== */
-    @media (max-width: 900px) {
-      .container { padding: 0 24px; }
-      .hero { grid-template-columns: 1fr; min-height: auto; }
-      .hero-left { padding: 80px 24px 60px; }
-      .hero-right { height: 60vw; }
-      .hero-right::after { background: linear-gradient(to top, var(--oliva) 0%, transparent 40%); }
-      .stats-inner { grid-template-columns: 1fr; }
-      .stat-item { border-right: none; border-bottom: 1px solid var(--pergaminho-08); padding: 24px; }
-      .stat-item:last-child { border-bottom: none; }
-      .problem-grid { grid-template-columns: 1fr; }
-      .agitation-inner { grid-template-columns: 1fr; gap: 40px; }
-      .section-about { grid-template-columns: 1fr; }
-      .about-photo { height: 60vw; }
-      .about-content { padding: 60px 24px; }
-      .solution-inner { grid-template-columns: 1fr; gap: 40px; }
-      .methodology-header { grid-template-columns: 1fr; gap: 24px; }
-      .step { grid-template-columns: 48px 1fr; }
-      .step-right { grid-column: 2; }
-      .benefits-grid { grid-template-columns: 1fr; }
-      .testimonials-header { grid-template-columns: 1fr; gap: 24px; }
-      .testimonials-grid { grid-template-columns: 1fr; }
-      .faq-header { grid-template-columns: 1fr; gap: 24px; }
-      .offer-grid { grid-template-columns: 1fr; }
+    ══════════════════════════════════════════════════════ */
+    @media (max-width: 860px) {
+      .wrap, .wrap-narrow, .nav-inner, .hero-content, .hero-bottom, .footer-inner, .form-wrap {
+        padding-left: 24px;
+        padding-right: 24px;
+      }
+      .criteria-grid { grid-template-columns: 1fr; }
+      .pillars { grid-template-columns: 1fr; }
+      .pillar { border-right: none; border-bottom: 1px solid var(--perg-07); }
+      .pillar:last-child { border-bottom: none; }
+      .differentials { grid-template-columns: 1fr; }
+      .step { grid-template-columns: 52px 1fr; }
+      .step-desc { display: none; }
+      .sobre-grid { grid-template-columns: 1fr; }
+      .sobre-photo { display: none; }
+      .form-row { grid-template-columns: 1fr; }
+      .nav-links { display: none; }
+      .not-criteria { flex-direction: column; gap: 16px; }
       .footer-inner { flex-direction: column; gap: 16px; text-align: center; }
-      .photo-divider-overlay { padding: 0 24px; }
     }
   </style>
 </head>
 <body>
 
-  <!-- ==============================
-       NAV
-  ============================== -->
+  <!-- ─── NAV ─────────────────────────────────────────────── -->
   <nav>
-    <div class="container">
-      <div class="nav-inner">
-        <a href="#" class="logo">go<span>matheus</span></a>
-        <ul class="nav-links">
-          <li><a href="#metodologia">Como funciona</a></li>
-          <li><a href="#faq">Dúvidas</a></li>
-          <li><a href="#oferta">Investimento</a></li>
-          <li><a href="#cta" class="btn-primary" style="padding:10px 20px;font-size:13px;">Fazer aplicação</a></li>
-        </ul>
+    <div class="nav-inner">
+      <div class="logo-lockup">
+        <img src="../../00-inicial/logos/emblema-go-crop.png" alt="GO">
       </div>
+      <ul class="nav-links">
+        <li><a href="#para-quem">Para quem</a></li>
+        <li><a href="#o-que-e">O que é</a></li>
+        <li><a href="#metodo">Método</a></li>
+        <li><a href="#sobre">Sobre</a></li>
+        <li><a href="#aplicacao" class="nav-cta">Aplicar</a></li>
+      </ul>
     </div>
   </nav>
 
-  <!-- ==============================
-       HERO
-  ============================== -->
-  <section class="hero">
-    <div class="hero-left">
-      <p class="overline hero-overline reveal">Para donos de empresa de serviço</p>
-      <h1 class="hero-name reveal reveal-delay-1">
-        Um time de<br>marketing com IA<br>dentro da sua empresa.
+
+  <!-- ─── HERO ─────────────────────────────────────────────── -->
+  <section id="hero">
+    <div class="hero-bg-grid"></div>
+    <div class="hero-bg-radial"></div>
+
+    <div class="hero-content">
+      <p class="label hero-label reveal">Sistema · Marketing com IA</p>
+
+      <h1 class="headline hero-headline reveal reveal-d1">
+        Um time de marketing<br>com IA dentro<br>da sua empresa.
       </h1>
-      <p class="hero-tagline reveal reveal-delay-2">sem agência. sem improviso.</p>
-      <p class="hero-sub reveal reveal-delay-2">
-        Em 2 dias, construímos o sistema.<br>
-        Em 30 dias, sua equipe produz com consistência —<br>
-        sem você estar no meio de tudo.
+
+      <span class="tagline-text hero-tagline reveal reveal-d2">bem feito por gente do bem</span>
+
+      <p class="hero-sub reveal reveal-d2">
+        Sem agência. Sem dependência de fornecedor.<br>
+        Com método, consistência e o sistema ficando com você.
       </p>
-      <div class="hero-cta-group reveal reveal-delay-3">
-        <a href="#cta" class="btn-primary">
-          Quero entender como funciona <span class="arrow">→</span>
+
+      <div class="hero-actions reveal reveal-d3">
+        <a href="#aplicacao" class="btn-primary">
+          Quero aplicar
+          <span style="font-size:14px; opacity:0.7;">→</span>
         </a>
-        <a href="#metodologia" class="btn-ghost">Ver a metodologia</a>
+        <a href="#o-que-e" class="btn-ghost">Como funciona</a>
       </div>
-      <p class="hero-note reveal reveal-delay-3" style="margin-top:20px;">Sem compromisso. Uma conversa de 30 minutos.</p>
     </div>
-    <div class="hero-right">
-      <!-- Foto: MatheusGomes-1.jpg — foto do Matheus sentado na banqueta sorrindo, all black -->
-      <img src="Fotos Profissionais 12-24/MatheusGomes-1.jpg" alt="Matheus Gomes — gomatheus">
-    </div>
-    <div class="hero-scroll">
-      <div class="hero-scroll-line"></div>
-      <span>scroll</span>
-    </div>
-  </section>
 
-  <!-- ==============================
-       STATS BAR
-  ============================== -->
-  <div class="stats-bar">
-    <div class="container">
-      <div class="stats-inner">
-        <div class="stat-item reveal">
-          <div class="stat-number">50+</div>
-          <div class="stat-label">empresários atendidos</div>
-        </div>
-        <div class="stat-item reveal reveal-delay-1">
-          <div class="stat-number">15+</div>
-          <div class="stat-label">segmentos de mercado</div>
-        </div>
-        <div class="stat-item reveal reveal-delay-2">
-          <div class="stat-number">6</div>
-          <div class="stat-label">anos construindo sistemas de marketing</div>
-        </div>
+    <div class="hero-bottom reveal reveal-d4">
+      <div class="hero-stat">
+        <span class="hero-stat-n">50+</span>
+        <span class="hero-stat-label">empresários atendidos</span>
       </div>
-    </div>
-  </div>
-
-  <!-- ==============================
-       PROBLEM
-  ============================== -->
-  <section class="section-problem">
-    <div class="container">
-      <div class="problem-header reveal">
-        <p class="overline">Se você já se viu aqui</p>
-        <h2 class="headline">Se você já tentou fazer conteúdo<br>e travou — faltou sistema.</h2>
+      <div class="hero-stat">
+        <span class="hero-stat-n">15+</span>
+        <span class="hero-stat-label">segmentos de mercado</span>
       </div>
-      <div class="problem-grid">
-        <div class="problem-item reveal">
-          <div class="problem-quote">O que a gente posta essa semana?</div>
-          <p class="problem-desc">A pergunta que aparece toda segunda-feira sem resposta. Sem pauta, sem método, sem clareza de direção.</p>
-        </div>
-        <div class="problem-item reveal reveal-delay-1">
-          <div class="problem-quote">Posto, mas não vejo resultado nenhum.</div>
-          <p class="problem-desc">Conteúdo saindo, energia sendo gasta — mas sem estratégia por trás, o esforço não se converte em cliente.</p>
-        </div>
-        <div class="problem-item reveal reveal-delay-2">
-          <div class="problem-quote">Pago R$4.000 por mês pra agência e eles não entendem o meu negócio.</div>
-          <p class="problem-desc">Execução acontecendo, mas vazia. Conteúdo genérico que poderia ser de qualquer empresa, não da sua.</p>
-        </div>
-        <div class="problem-item reveal reveal-delay-3">
-          <div class="problem-quote">Minha equipe não sabe o que produzir.</div>
-          <p class="problem-desc">Pessoas dispostas a executar, mas sem clareza de como fazer — e sem ferramentas que orientem o processo.</p>
-        </div>
-      </div>
-      <div class="problem-validation reveal">
-        <p>"Isso não é falta de esforço. É falta de estrutura.<br>Conteúdo sem sistema é improviso. E improviso não escala."</p>
+      <div class="hero-stat">
+        <span class="hero-stat-n">4 anos</span>
+        <span class="hero-stat-label">construindo sistemas reais</span>
       </div>
     </div>
   </section>
 
-  <!-- ==============================
-       AGITATION
-  ============================== -->
-  <section class="section-agitation">
-    <div class="container">
-      <div class="agitation-inner">
-        <div class="agitation-label reveal">
-          <p class="overline">O custo invisível</p>
-          <h2 class="headline">O que acontece quando nada muda.</h2>
+
+  <!-- ─── PARA QUEM É ───────────────────────────────────────── -->
+  <section id="para-quem">
+    <div class="wrap">
+      <div class="section-header">
+        <span class="label reveal">Para quem é</span>
+        <h2 class="headline section-headline reveal reveal-d1">
+          Para o empresário que<br>construiu algo real.
+        </h2>
+      </div>
+
+      <p class="body-text reveal reveal-d1" style="max-width:600px; margin-bottom:0;">
+        O gomatheus não atende qualquer empresa. Trabalha com quem já tem um negócio funcionando e quer construir infraestrutura para crescer — sem trocar uma dependência por outra.
+      </p>
+
+      <div class="criteria-grid">
+        <div class="criteria-card reveal reveal-d1">
+          <span class="criteria-n">01</span>
+          <h3 class="criteria-title">Empresa de serviço com receita acima de R$100k/mês</h3>
+          <p class="criteria-desc">O negócio já funciona. O problema não é o produto — é a falta de sistema para comunicar isso com consistência.</p>
         </div>
-        <div class="agitation-text reveal reveal-delay-1">
-          <p>Enquanto sua empresa não aparece com consistência, <strong>seu concorrente está aparecendo</strong>. Para o cliente que estava pronto para comprar de você.</p>
-          <p>Cada semana sem conteúdo é uma semana dependendo de indicação. Indicação é ótima — mas não é previsível. Não é escalável. <strong>E não é um sistema.</strong></p>
-          <p>A agência cobra R$3.000 a R$8.000 por mês. Não treina seu time. Não entende sua empresa por dentro. Quando o contrato acaba, você começa do zero. De novo.</p>
-          <p><strong>Improviso tem custo. Só não aparece na planilha.</strong></p>
-          <div class="agitation-cta">
-            <a href="#cta" class="btn-primary">Quero montar um sistema de verdade <span class="arrow">→</span></a>
+        <div class="criteria-card reveal reveal-d2">
+          <span class="criteria-n">02</span>
+          <h3 class="criteria-title">Tem alguém interno mas a produção trava</h3>
+          <p class="criteria-desc">Existe uma pessoa responsável pelo marketing, mas falta processo, ferramentas e ritmo. Tudo depende de inspiração ou de terceiros.</p>
+        </div>
+        <div class="criteria-card reveal reveal-d3">
+          <span class="criteria-n">03</span>
+          <h3 class="criteria-title">Quer consistência sem agência para sempre</h3>
+          <p class="criteria-desc">Já passou ou está passando pela experiência de pagar por execução sem construir nada próprio. Quer sair dessa lógica.</p>
+        </div>
+      </div>
+
+      <div class="not-criteria reveal reveal-d2">
+        <span class="not-criteria-label">Importante</span>
+        <p class="not-criteria-text">Se você quer um fornecedor que execute por você indefinidamente, o gomatheus não é o caminho certo. O objetivo aqui é construir autonomia — não criar uma nova dependência.</p>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ─── O QUE É ───────────────────────────────────────────── -->
+  <section id="o-que-e">
+    <div class="wrap">
+      <div class="section-header">
+        <span class="label reveal">O que é</span>
+        <h2 class="headline section-headline reveal reveal-d1">
+          Não é agência.<br>Não é curso.<br>É o sistema que fica com você.
+        </h2>
+      </div>
+
+      <p class="body-text reveal reveal-d1" style="max-width:580px; margin-bottom:0;">
+        O gomatheus entra dentro da empresa, constrói o time de IA treinado para aquele negócio específico, treina quem vai operar — e o sistema fica com o cliente. Para sempre.
+      </p>
+
+      <div class="pillars reveal reveal-d2">
+        <div class="pillar">
+          <span class="pillar-icon">I</span>
+          <h3 class="pillar-title">Entra dentro da empresa</h3>
+          <p class="pillar-text">Diagnóstico completo do negócio, da voz, do cliente ideal e do que já funciona — antes de construir qualquer coisa.</p>
+          <p class="pillar-detail">Raio-X completo</p>
+        </div>
+        <div class="pillar">
+          <span class="pillar-icon">II</span>
+          <h3 class="pillar-title">Constrói o time de IA</h3>
+          <p class="pillar-text">Agentes com Claude Code treinados para o negócio específico. Roteiros, carrosséis, pautas, captions — com a voz e o método da empresa.</p>
+          <p class="pillar-detail">Agentes com Claude Code</p>
+        </div>
+        <div class="pillar">
+          <span class="pillar-icon">III</span>
+          <h3 class="pillar-title">Treina quem vai operar</h3>
+          <p class="pillar-text">A pessoa interna aprende a usar, ajustar e escalar o sistema. O gomatheus sai. O sistema fica. A autonomia é real.</p>
+          <p class="pillar-detail">Autonomia garantida</p>
+        </div>
+      </div>
+
+      <div class="differentials">
+        <div class="diff-card reveal reveal-d1">
+          <div class="diff-icon"></div>
+          <div class="diff-text">
+            <strong>Não é agência</strong>
+            Não executa por você indefinidamente. Não manda relatório e some. Constrói o sistema e treina seu time.
+          </div>
+        </div>
+        <div class="diff-card reveal reveal-d2">
+          <div class="diff-icon"></div>
+          <div class="diff-text">
+            <strong>Não é curso</strong>
+            Não entrega conteúdo genérico para você estudar sozinho. Entra na empresa, mapeia e constrói junto.
+          </div>
+        </div>
+        <div class="diff-card reveal reveal-d3">
+          <div class="diff-icon"></div>
+          <div class="diff-text">
+            <strong>Não é consultoria</strong>
+            Não entrega estratégia em deck para você implementar. O sistema sai pronto e operacional.
           </div>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- ==============================
-       ABOUT / CREDIBILITY
-  ============================== -->
-  <section class="section-about" id="sobre">
-    <div class="about-photo">
-      <!-- Foto: matheus-about.jpg — foto contemplativa sentado, braços cruzados no joelho -->
-      <img src="matheus-about.jpg" alt="Matheus Gomes">
-    </div>
-    <div class="about-content">
-      <p class="overline reveal">Quem está do outro lado</p>
-      <h2 class="headline reveal reveal-delay-1">Eu já fui a agência que você está pagando.</h2>
-      <p class="reveal reveal-delay-2">Meu nome é Matheus. Por <strong>6 anos</strong> trabalhei com marketing — fui dono de agência, geri campanhas, produzi conteúdo para dezenas de empresas. Conheço o modelo por dentro.</p>
-      <p class="reveal reveal-delay-2">E é exatamente por isso que <strong>eu larguei.</strong> Não acredito mais nesse modelo. Uma equipe de pessoas que não vivem o seu negócio, que dividem a atenção entre 10 outros clientes, que entregam conteúdo genérico enquanto você paga R$4.000 por mês de gestão e outros R$4.000 em anúncios. Leads ruins, pautas que não fazem sentido, relatórios que não explicam nada.</p>
-      <blockquote class="about-quote reveal reveal-delay-2">
-        "O dono de agência vai ficar maluco comigo por falar isso. Mas você merece saber o que está pagando."
-      </blockquote>
-      <p class="reveal reveal-delay-3">Hoje sou empresário de três negócios: uma <strong>Escola Online de Pilates Clássico</strong>, uma <strong>contabilidade</strong> e esta consultoria. Vivo o lado do empresário todos os dias — os mesmos desafios que você enfrenta são os meus.</p>
-      <p class="reveal reveal-delay-3">Meu objetivo é direto: <strong>tirar você do zero e levar aos 80% de sucesso.</strong> Estruturar o time de marketing, passar tudo que sei sobre conteúdo, IA e estratégia — e te dar as ferramentas para o dia a dia. Quem sabe um dia chegamos nos 100%, juntos.</p>
-    </div>
-  </section>
 
-  <!-- ==============================
-       SOLUTION
-  ============================== -->
-  <section class="section-solution">
-    <div class="container">
-      <div class="solution-inner">
-        <div class="solution-left">
-          <p class="overline reveal">O que a gente faz</p>
-          <h2 class="headline reveal reveal-delay-1">O Sistema de Marketing Interno com IA.</h2>
-          <p class="reveal reveal-delay-2"><strong>O gomatheus não é uma agência.</strong> Não entregamos posts. Entregamos o sistema que produz os posts — e treinamos quem vai operar esse sistema.</p>
-          <p class="reveal reveal-delay-2">A diferença é simples: agência vai embora. <strong>Sistema fica.</strong></p>
-          <p class="reveal reveal-delay-2">Em 2 dias de trabalho junto, mapeamos seu negócio, construímos agentes de IA treinados para a sua empresa específica, e capacitamos a pessoa do seu time para executar com consistência.</p>
-          <div class="solution-tags reveal reveal-delay-3">
-            <span class="solution-tag">Para empresas de serviço</span>
-            <span class="solution-tag">+R$100k/mês</span>
-            <span class="solution-tag">Com time interno</span>
-          </div>
-        </div>
-        <div class="solution-right reveal reveal-delay-2">
-          <p class="solution-card-label">Para quem não é</p>
-          <ul class="solution-items">
-            <li><span><strong>Não é</strong> para quem quer fazer tudo sozinho — o sistema depende de uma pessoa interna para executar.</span></li>
-            <li><span><strong>Não é</strong> para empresa sem ninguém disponível para executar conteúdo.</span></li>
-            <li><span><strong>Não é</strong> para quem ainda está se convencendo de que conteúdo funciona — isso já precisa estar decidido.</span></li>
-          </ul>
-          <div style="margin-top:32px;padding-top:32px;border-top:1px solid var(--pergaminho-08);">
-            <p class="solution-card-label">Para quem é</p>
-            <ul class="solution-items">
-              <li><span><strong>Empresa de serviço</strong> — consultoria, clínica, escritório, prestador técnico.</span></li>
-              <li><span><strong>Faturamento +R$100k/mês</strong> — negócio com tração, pronto para escalar com sistema.</span></li>
-              <li><span><strong>Time interno disponível</strong> — alguém que pode gravar, editar e publicar com orientação.</span></li>
-            </ul>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ==============================
-       METHODOLOGY
-  ============================== -->
-  <section class="section-methodology" id="metodologia">
-    <div class="container">
-      <div class="methodology-header">
-        <div class="reveal">
-          <p class="overline">Como funciona</p>
-          <h2 class="headline">5 etapas.<br>Do diagnóstico à escala.</h2>
-        </div>
-        <div class="reveal reveal-delay-1">
-          <p class="tagline">é mais simples do que parece.</p>
-          <p style="font-size:15px;color:var(--pergaminho-50);line-height:1.8;">Cada etapa entrega algo concreto. Você sai de cada fase com um resultado em mãos — não só com promessa.</p>
-        </div>
+  <!-- ─── MÉTODO ───────────────────────────────────────────── -->
+  <section id="metodo">
+    <div class="wrap">
+      <div class="section-header">
+        <span class="label reveal">Como funciona</span>
+        <h2 class="headline section-headline reveal reveal-d1">
+          Cinco etapas.<br>Um sistema.
+        </h2>
       </div>
 
-      <div class="steps-list">
+      <div class="steps">
         <div class="step reveal">
-          <div class="step-number">01</div>
-          <div class="step-left">
-            <div class="step-title">Raio-X</div>
-            <div class="step-subtitle">Diagnóstico</div>
-          </div>
-          <div class="step-right">
-            <p>Mapeamos o seu negócio do zero: <strong>quem é o cliente ideal</strong>, quais são as dores reais, qual é a promessa que converte, qual é o diferencial que nenhum concorrente tem.</p>
-            <div class="step-deliverable">Você sai com: posicionamento claro, linguagem do ICP, promessa magnética.</div>
-          </div>
+          <span class="step-n">01</span>
+          <div class="step-title">Raio-X do Negócio</div>
+          <p class="step-desc">Mapeamento completo: especialidade, cliente ideal, dores, objeções, metodologia, voz da marca. O sistema que será construído precisa refletir aquela empresa — não um template genérico.</p>
         </div>
-
-        <div class="step reveal">
-          <div class="step-number">02</div>
-          <div class="step-left">
-            <div class="step-title">Construção do Time</div>
-            <div class="step-subtitle">Agentes de IA</div>
-          </div>
-          <div class="step-right">
-            <p>Criamos os agentes de IA no Claude — <strong>treinados para o seu negócio específico</strong>. Roteiro, copy, pauta de conteúdo, análise de tráfego. Cada agente faz o trabalho de uma função de marketing.</p>
-            <div class="step-deliverable">Você sai com: um time de IA funcionando, pronto para uso imediato.</div>
-          </div>
+        <div class="step reveal reveal-d1">
+          <span class="step-n">02</span>
+          <div class="step-title">Construção do Time de IA</div>
+          <p class="step-desc">Agentes com Claude Code treinados com o contexto real do negócio. Cada agente tem uma função específica: roteiro de reels, carrossel, caption, pauta mensal. Nada genérico.</p>
         </div>
-
-        <div class="step reveal">
-          <div class="step-number">03</div>
-          <div class="step-left">
-            <div class="step-title">Treinamento Humano</div>
-            <div class="step-subtitle">Capacitação interna</div>
-          </div>
-          <div class="step-right">
-            <p>Capacitamos a pessoa interna do seu time para gravar, editar e publicar com consistência. <strong>Não é curso online</strong> — é treinamento prático, no seu negócio, com os seus conteúdos.</p>
-            <div class="step-deliverable">Você sai com: alguém no seu time sabendo o que fazer toda semana.</div>
-          </div>
+        <div class="step reveal reveal-d2">
+          <span class="step-n">03</span>
+          <div class="step-title">Treinamento da Pessoa Interna</div>
+          <p class="step-desc">A pessoa que vai operar o sistema aprende na prática. Não assiste aula — usa, produz e entende o porquê de cada decisão. Em dois dias está operando com autonomia.</p>
         </div>
-
-        <div class="step reveal">
-          <div class="step-number">04</div>
-          <div class="step-left">
-            <div class="step-title">Acompanhamento</div>
-            <div class="step-subtitle">Reuniões semanais</div>
-          </div>
-          <div class="step-right">
-            <p>Reuniões semanais para revisar, criar e ajustar junto. <strong>Sem "o que a gente faz essa semana?"</strong> — com pauta, método e resultado documentado a cada encontro.</p>
-            <div class="step-deliverable">Você sai com: ritmo de produção, não mais improviso.</div>
-          </div>
+        <div class="step reveal reveal-d3">
+          <span class="step-n">04</span>
+          <div class="step-title">Acompanhamento Semanal</div>
+          <p class="step-desc">Nas primeiras semanas, ajustes e calibração junto. O sistema vai ficando mais preciso conforme a operação acontece e gera dados reais.</p>
         </div>
-
-        <div class="step reveal">
-          <div class="step-number">05</div>
-          <div class="step-left">
-            <div class="step-title">Escala</div>
-            <div class="step-subtitle">Tráfego + dados</div>
-          </div>
-          <div class="step-right">
-            <p>Quando o orgânico está rodando, analisamos tráfego pago e funis. <strong>Com dados reais</strong> — não com achismo. Decisões de marketing baseadas no que o seu conteúdo já provou que funciona.</p>
-            <div class="step-deliverable">Você sai com: marketing com análise real e inteligência de decisão.</div>
-          </div>
-        </div>
-      </div>
-
-      <div style="margin-top:64px;text-align:center;" class="reveal">
-        <a href="#cta" class="btn-primary">Quero esse sistema na minha empresa <span class="arrow">→</span></a>
-      </div>
-    </div>
-  </section>
-
-  <!-- ==============================
-       BW PHOTO DIVIDER
-  ============================== -->
-  <div class="photo-divider">
-    <!-- Foto: matheus-bw.jpg — perfil P&B, braços cruzados, side view -->
-    <img src="matheus-bw.jpg" alt="">
-    <div class="photo-divider-overlay">
-      <div class="photo-divider-text">
-        <p class="overline reveal">A diferença que importa</p>
-        <h2 class="headline reveal reveal-delay-1">Agência vai embora.<br>Sistema fica.</h2>
-        <p class="reveal reveal-delay-2">O método é seu. A equipe é sua. Os agentes são seus. Quando terminarmos, você não depende de mim para operar. Essa é a intenção desde o início.</p>
-        <a href="#cta" class="btn-primary reveal reveal-delay-3">Agendar conversa <span class="arrow">→</span></a>
-      </div>
-    </div>
-  </div>
-
-  <!-- ==============================
-       BENEFITS
-  ============================== -->
-  <section class="section-benefits">
-    <div class="container">
-      <div class="benefits-header reveal">
-        <p class="overline">O que muda no dia a dia</p>
-        <h2 class="headline">O que você vai viver depois<br>que o sistema estiver rodando.</h2>
-      </div>
-      <div class="benefits-grid">
-        <div class="benefit-card reveal">
-          <div class="benefit-icon">🧭</div>
-          <div class="benefit-title">Você para de se preocupar com o que postar</div>
-          <p class="benefit-text">Pauta, roteiro e formato definidos. O conteúdo acontece toda semana, com ou sem você no meio. Você aprova, não gerencia.</p>
-        </div>
-        <div class="benefit-card reveal reveal-delay-1">
-          <div class="benefit-icon">💰</div>
-          <div class="benefit-title">R$3.000 a R$8.000 economizados por mês</div>
-          <p class="benefit-text">Para de pagar agência que não entende o seu negócio. Opera com time interno — e fica com o sistema para sempre, sem mensalidade.</p>
-        </div>
-        <div class="benefit-card reveal reveal-delay-2">
-          <div class="benefit-icon">⚡</div>
-          <div class="benefit-title">Seu time ganha confiança para executar</div>
-          <p class="benefit-text">Treinado, com ferramentas, sabendo o que fazer. Não depende de você aprovar cada post antes de publicar.</p>
-        </div>
-        <div class="benefit-card reveal">
-          <div class="benefit-icon">📈</div>
-          <div class="benefit-title">Sua empresa aparece com consistência</div>
-          <p class="benefit-text">Consistência é o que o algoritmo, o cliente e a credibilidade pedem. Não é sobre postar todo dia — é sobre postar com método.</p>
-        </div>
-        <div class="benefit-card reveal reveal-delay-1">
-          <div class="benefit-icon">🎯</div>
-          <div class="benefit-title">Você atrai o perfil certo de cliente</div>
-          <p class="benefit-text">Conteúdo estratégico filtra quem chega até você. Menos negociação de preço, mais cliente que já chegou convencido.</p>
-        </div>
-        <div class="benefit-card reveal reveal-delay-2">
-          <div class="benefit-icon">🔬</div>
-          <div class="benefit-title">Você tem dados reais para decidir</div>
-          <p class="benefit-text">Relatórios, análises, o que performou e o que não performou. Marketing com inteligência, não com achismo.</p>
+        <div class="step reveal reveal-d4">
+          <span class="step-n">05</span>
+          <div class="step-title">Escala com Autonomia</div>
+          <p class="step-desc">O time interno opera com consistência. O sistema é do cliente. O gomatheus sai de cena — e só volta se o cliente quiser expandir para o próximo setor.</p>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- ==============================
-       TESTIMONIALS
-  ============================== -->
-  <section class="section-testimonials">
-    <div class="container">
-      <div class="testimonials-header">
-        <div class="reveal">
-          <p class="overline">Quem já passou por isso</p>
-          <h2 class="headline">O que muda quando o sistema entra.</h2>
-        </div>
-        <div class="reveal reveal-delay-1">
-          <p>Depoimentos reais de donos de empresa de serviço que pararam de improvisar e montaram um sistema interno de marketing com IA.</p>
-        </div>
-      </div>
-      <div class="testimonials-grid">
-        <div class="testimonial-card reveal">
-          <div class="testimonial-stars">
-            <span>★</span><span>★</span><span>★</span><span>★</span><span>★</span>
-          </div>
-          <p class="testimonial-text">"Antes de montar o sistema, a gente ficava travado toda semana. A pergunta era sempre a mesma: 'o que a gente posta?' Depois de 30 dias operando com o método, minha equipe já sabe o que fazer — e eu parei de estar no meio de tudo."</p>
-          <div class="testimonial-author">
-            <div class="testimonial-avatar">RB</div>
-            <div>
-              <div class="testimonial-name">Ricardo B.</div>
-              <div class="testimonial-role">Dono de consultoria · São Paulo</div>
-            </div>
-          </div>
-        </div>
-        <div class="testimonial-card reveal reveal-delay-1">
-          <div class="testimonial-stars">
-            <span>★</span><span>★</span><span>★</span><span>★</span><span>★</span>
-          </div>
-          <p class="testimonial-text">"Eu tinha saído de uma agência que cobrava R$5.000 por mês e não entendia nada do meu negócio. Em dois dias com o Matheus, a gente construiu mais do que naqueles 6 meses todos."</p>
-          <div class="testimonial-author">
-            <div class="testimonial-avatar">AM</div>
-            <div>
-              <div class="testimonial-name">Ana M.</div>
-              <div class="testimonial-role">Gestora de clínica · Interior SP</div>
-            </div>
-          </div>
-        </div>
-        <div class="testimonial-card reveal reveal-delay-2">
-          <div class="testimonial-stars">
-            <span>★</span><span>★</span><span>★</span><span>★</span><span>★</span>
-          </div>
-          <p class="testimonial-text">"Achei que IA era complicado demais pro meu time. Mas a pessoa que eu coloquei pra executar aprendeu em um dia. Hoje ela opera tudo sozinha — eu só reviso."</p>
-          <div class="testimonial-author">
-            <div class="testimonial-avatar">FS</div>
-            <div>
-              <div class="testimonial-name">Felipe S.</div>
-              <div class="testimonial-role">Prestador de serviço técnico · BH</div>
-            </div>
-          </div>
-        </div>
-      </div>
-      <p class="testimonials-note">* Depoimentos coletados com os primeiros clientes do Plano Individual. Substituir por depoimentos reais com foto e empresa ao coletar.</p>
-    </div>
-  </section>
 
-  <!-- ==============================
-       FAQ
-  ============================== -->
-  <section class="section-faq" id="faq">
-    <div class="container">
-      <div class="faq-header">
-        <div class="reveal">
-          <p class="overline">Perguntas frequentes</p>
-          <h2 class="headline">As dúvidas que aparecem antes de fechar.</h2>
+  <!-- ─── SOBRE MATHEUS ─────────────────────────────────────── -->
+  <section id="sobre">
+    <div class="wrap">
+      <div class="sobre-grid">
+        <div class="sobre-photo reveal">
+          <div class="sobre-photo-frame"></div>
+          <img
+            src="../../00-inicial/fotos/MatheusGomes-5%20Grande.jpeg"
+            alt="Matheus Gomes"
+          >
         </div>
-        <div class="reveal reveal-delay-1">
-          <p>Não finjo as objeções. Aqui estão as perguntas reais que chegam antes de qualquer conversa — respondidas com clareza.</p>
-        </div>
-      </div>
-
-      <div class="faq-list">
-        <div class="faq-item">
-          <button class="faq-question" onclick="toggleFaq(this)">
-            <span class="faq-question-text">Isso vai funcionar para o meu tipo de negócio?</span>
-            <span class="faq-toggle">+</span>
-          </button>
-          <div class="faq-answer">
-            <div class="faq-answer-inner">
-              O sistema foi desenhado para empresas de serviço — consultoria, clínica, escritório, prestador técnico. A primeira etapa é justamente mapear o <strong>seu negócio específico</strong>: ICP, dores, linguagem, diferencial. Nada é genérico. Tudo é construído para o que você faz, para quem você atende.
-            </div>
-          </div>
-        </div>
-
-        <div class="faq-item">
-          <button class="faq-question" onclick="toggleFaq(this)">
-            <span class="faq-question-text">Não sei se a IA consegue fazer isso de verdade.</span>
-            <span class="faq-toggle">+</span>
-          </button>
-          <div class="faq-answer">
-            <div class="faq-answer-inner">
-              A IA não substitui sua equipe — ela multiplica. <strong>Uma pessoa com os agentes certos produz o que um time de 5 produzia antes.</strong> E os agentes são treinados com as suas informações específicas — não com prompts genéricos da internet.
-            </div>
-          </div>
-        </div>
-
-        <div class="faq-item">
-          <button class="faq-question" onclick="toggleFaq(this)">
-            <span class="faq-question-text">Já tentei coisas parecidas e não funcionou.</span>
-            <span class="faq-toggle">+</span>
-          </button>
-          <div class="faq-answer">
-            <div class="faq-answer-inner">
-              O que provavelmente não funcionou foi uma agência que entregava conteúdo sem entender o negócio, ou um curso que deu teoria sem acompanhamento. Isso é diferente: a gente <strong>constrói dentro da sua empresa</strong>, treina quem vai executar, e acompanha semanalmente. Você não fica sozinho depois dos 2 dias.
-            </div>
-          </div>
-        </div>
-
-        <div class="faq-item">
-          <button class="faq-question" onclick="toggleFaq(this)">
-            <span class="faq-question-text">Não tenho tempo para implementar isso agora.</span>
-            <span class="faq-toggle">+</span>
-          </button>
-          <div class="faq-answer">
-            <div class="faq-answer-inner">
-              Os 2 dias de trabalho são o investimento de tempo necessário para parar de gastar horas toda semana no improviso. Depois do sistema rodando, <strong>você sai de dentro</strong>. É uma troca de tempo — não uma adição.
-            </div>
-          </div>
-        </div>
-
-        <div class="faq-item">
-          <button class="faq-question" onclick="toggleFaq(this)">
-            <span class="faq-question-text">R$5.000 está acima do que consigo investir agora.</span>
-            <span class="faq-toggle">+</span>
-          </button>
-          <div class="faq-answer">
-            <div class="faq-answer-inner">
-              Uma agência para uma marca cobra entre <strong>R$3.000 e R$8.000 por mês</strong> — sem treinamento do time, sem sistema que fica, sem garantia de resultado. Em 2 meses de agência você gastou mais do que o Plano Individual — e não ficou com nada próprio. Aqui, você fica com o método para sempre.
-            </div>
-          </div>
-        </div>
-
-        <div class="faq-item">
-          <button class="faq-question" onclick="toggleFaq(this)">
-            <span class="faq-question-text">E se não funcionar para mim?</span>
-            <span class="faq-toggle">+</span>
-          </button>
-          <div class="faq-answer">
-            <div class="faq-answer-inner">
-              Se ao fim do período de acompanhamento o seu time ainda não estiver operando o sistema com consistência, <strong>continuamos as reuniões semanais sem custo adicional</strong> — até funcionar. Meu interesse não é fechar uma venda. É que o sistema funcione de verdade dentro da sua empresa.
-            </div>
+        <div class="sobre-content">
+          <span class="label reveal">Sobre</span>
+          <h2 class="headline sobre-headline reveal reveal-d1">
+            Um engenheiro<br>que também constrói.
+          </h2>
+          <p class="sobre-text reveal reveal-d2">
+            Matheus construiu empresas em segmentos completamente diferentes — construtora, fábrica de queijos veganos, tecnologia. Em cada uma, o problema era o mesmo: o dono bom no que faz, mas sem infraestrutura para crescer.
+          </p>
+          <p class="sobre-text reveal reveal-d2">
+            Depois de quatro anos gerenciando times e atendendo mais de 50 empresários em 15+ segmentos, a conclusão foi simples: empresa boa não precisa de mais fornecedores — precisa de times internos que funcionam.
+          </p>
+          <p class="sobre-text reveal reveal-d3">
+            O gomatheus existe para construir esses times. Usando IA. Setor por setor. Para que o empresário possa focar no que só ele pode fazer.
+          </p>
+          <div class="sobre-credentials reveal reveal-d3">
+            <div class="cred">Construiu empresas em 3 segmentos distintos antes do gomatheus</div>
+            <div class="cred">4 anos gerenciando times em empresa de tecnologia</div>
+            <div class="cred">50+ empresários atendidos em 15+ segmentos</div>
+            <div class="cred">Usa os próprios sistemas que constrói para os clientes</div>
           </div>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- ==============================
-       OFFER / PRICING
-  ============================== -->
-  <section class="section-offer" id="oferta">
-    <div class="container">
-      <div class="offer-header reveal">
-        <p class="overline">Investimento</p>
-        <h2 class="headline">Plano Individual —<br>construído para a sua empresa.</h2>
+
+  <!-- ─── FORMULÁRIO DE APLICAÇÃO ───────────────────────────── -->
+  <section id="aplicacao">
+    <div class="form-wrap">
+      <div class="form-box">
+      <div class="form-header">
+        <span class="label reveal">Aplicação</span>
+        <h2 class="headline form-headline reveal reveal-d1">
+          Construir começa<br>com uma conversa.
+        </h2>
+        <p class="form-sub reveal reveal-d2">
+          Revisamos todas as aplicações e entramos em contato em até 48 horas. Só seguimos em frente se fizer sentido para os dois lados.
+        </p>
       </div>
-      <div class="offer-grid">
-        <div class="offer-items reveal">
-          <p class="offer-items-label">O que está incluído</p>
-          <ul class="offer-item-list">
-            <li class="offer-item">
-              <div class="offer-item-check">✓</div>
-              <div class="offer-item-text">
-                <div class="offer-item-title">Sessão de Raio-X (4h)</div>
-                <div class="offer-item-desc">Mapeamento completo do negócio, ICP, posicionamento, promessa magnética e linguagem de marca.</div>
-              </div>
-            </li>
-            <li class="offer-item">
-              <div class="offer-item-check">✓</div>
-              <div class="offer-item-text">
-                <div class="offer-item-title">Construção dos Agentes de IA</div>
-                <div class="offer-item-desc">Agentes treinados para roteiro de Reels, copy de carrossel, pauta de conteúdo e relatório — feitos especificamente para o seu negócio.</div>
-              </div>
-            </li>
-            <li class="offer-item">
-              <div class="offer-item-check">✓</div>
-              <div class="offer-item-text">
-                <div class="offer-item-title">Treinamento da Equipe Interna (4h)</div>
-                <div class="offer-item-desc">Capacitação prática da pessoa do seu time para gravar, editar e publicar com consistência.</div>
-              </div>
-            </li>
-            <li class="offer-item">
-              <div class="offer-item-check">✓</div>
-              <div class="offer-item-text">
-                <div class="offer-item-title">Calendário Editorial do Mês 1</div>
-                <div class="offer-item-desc">Pauta completa de conteúdo para as primeiras 4 semanas — temas, formatos e pilares definidos.</div>
-              </div>
-            </li>
-            <li class="offer-item">
-              <div class="offer-item-check">✓</div>
-              <div class="offer-item-text">
-                <div class="offer-item-title">Acompanhamento Semanal</div>
-                <div class="offer-item-desc">Reuniões de revisão, criação e ajuste durante o período de implementação.</div>
-              </div>
-            </li>
-            <li class="offer-item">
-              <div class="offer-item-check">✓</div>
-              <div class="offer-item-text">
-                <div class="offer-item-title">Documentação do Sistema</div>
-                <div class="offer-item-desc">Tudo registrado para que o sistema funcione mesmo se a pessoa interna mudar.</div>
-              </div>
-            </li>
-          </ul>
-        </div>
-        <div class="offer-pricing reveal reveal-delay-1">
-          <div>
-            <p class="offer-price-label">Investimento total</p>
-            <div class="offer-price">R$5.000</div>
-            <p class="offer-price-period">Pagamento único. Sem mensalidade. Sem fidelidade.</p>
-            <div class="offer-compare">
-              <strong>Comparativo:</strong> equivale a menos de 2 meses de uma agência que não treina seu time e não deixa sistema.
-            </div>
-            <p class="offer-slots">● Apenas 5 vagas por mês</p>
+
+      <form id="application-form" class="reveal reveal-d2" novalidate>
+
+        <div class="form-row">
+          <div class="form-field">
+            <label for="nome">Seu nome</label>
+            <input type="text" id="nome" name="nome" placeholder="Nome completo" autocomplete="name" required>
           </div>
-          <div>
-            <a href="#cta" class="btn-primary-full">Quero fazer minha aplicação <span style="font-size:18px;">→</span></a>
-            <p class="offer-guarantee">Apenas 5 vagas por mês. Preencha o formulário de aplicação — se fizer sentido para os dois lados, a gente avança.</p>
+          <div class="form-field">
+            <label for="whatsapp">WhatsApp</label>
+            <input type="tel" id="whatsapp" name="whatsapp" placeholder="(11) 99999-9999" autocomplete="tel" required>
           </div>
         </div>
+
+        <div class="form-field-full">
+          <label for="empresa">Empresa e segmento</label>
+          <input type="text" id="empresa" name="empresa" placeholder="Ex: Clínica Bem Estar · Saúde e estética" required>
+        </div>
+
+        <div class="form-field-full">
+          <label for="faturamento">Faturamento mensal atual</label>
+          <select id="faturamento" name="faturamento" required>
+            <option value="" disabled selected>Selecione a faixa</option>
+            <option value="50-100k">Entre R$50k e R$100k</option>
+            <option value="100-300k">Entre R$100k e R$300k</option>
+            <option value="300-600k">Entre R$300k e R$600k</option>
+            <option value="600k+">Acima de R$600k</option>
+          </select>
+        </div>
+
+        <div class="form-field-full">
+          <label>Tem alguém interno responsável pelo marketing?</label>
+          <div class="radio-group">
+            <label class="radio-opt">
+              <input type="radio" name="tem_interno" value="sim" required>
+              <span class="radio-dot"></span>
+              Sim
+            </label>
+            <label class="radio-opt">
+              <input type="radio" name="tem_interno" value="nao">
+              <span class="radio-dot"></span>
+              Não
+            </label>
+            <label class="radio-opt">
+              <input type="radio" name="tem_interno" value="em_transicao">
+              <span class="radio-dot"></span>
+              Em transição
+            </label>
+          </div>
+        </div>
+
+        <div class="form-field-full">
+          <label for="problema">Qual é o maior problema com marketing na sua empresa hoje?</label>
+          <textarea id="problema" name="problema" placeholder="Descreva em poucas linhas o que mais trava a sua produção de conteúdo hoje." rows="4" required></textarea>
+        </div>
+
+        <div class="form-field-full">
+          <label for="expectativa">O que você quer construir com o gomatheus?</label>
+          <textarea id="expectativa" name="expectativa" placeholder="O que muda na empresa quando o sistema de marketing estiver funcionando?" rows="4" required></textarea>
+        </div>
+
+        <div class="form-submit-area">
+          <button type="submit" class="btn-submit">
+            Enviar minha aplicação
+            <span class="btn-submit-arrow">→</span>
+          </button>
+          <p class="form-notice">
+            Ao enviar, você concorda que o gomatheus entre em contato pelo WhatsApp informado.<br>
+            Revisamos todas as aplicações em até 48h.
+          </p>
+        </div>
+      </form>
+
+      <div class="form-success" id="form-success">
+        <h2 class="headline">Aplicação recebida.</h2>
+        <p>Obrigado. Revisamos sua aplicação e entramos em contato pelo WhatsApp em até 48 horas.</p>
       </div>
+      </div><!-- /.form-box -->
     </div>
   </section>
 
-  <!-- ==============================
-       FINAL CTA
-  ============================== -->
-  <section class="section-cta" id="cta">
-    <div class="cta-bg-text">sistema</div>
-    <div class="container">
-      <div class="cta-inner">
-        <p class="overline reveal">Próximo passo</p>
-        <h2 class="headline reveal reveal-delay-1">Preencha o formulário.<br>A gente avalia se faz sentido.</h2>
-        <span class="tagline reveal reveal-delay-2">bem feito por gente do bem</span>
-        <p class="reveal reveal-delay-2">São 5 perguntas sobre o seu negócio. Leva menos de 3 minutos. Com base nas suas respostas, eu avalio se o sistema é o momento certo para você — e entro em contato pessoalmente.</p>
-        <div class="cta-buttons reveal reveal-delay-3">
-          <a href="#formulario" class="btn-primary">
-            Fazer minha aplicação agora <span class="arrow">→</span>
-          </a>
-          <a href="https://instagram.com/gomatheus" class="btn-ghost">Falar no Instagram</a>
-        </div>
-        <p class="cta-note reveal reveal-delay-3">Somente 5 vagas por mês. Aplicações avaliadas por ordem de chegada.</p>
-      </div>
-    </div>
-  </section>
 
-  <!-- ==============================
-       FOOTER
-  ============================== -->
+  <!-- ─── FOOTER ───────────────────────────────────────────── -->
   <footer>
-    <div class="container">
-      <div class="footer-inner">
-        <div class="footer-logo">go<span>matheus</span></div>
-        <div class="footer-tagline">bem feito por gente do bem</div>
-        <div class="footer-copy">© 2026 gomatheus. Todos os direitos reservados.</div>
-      </div>
+    <div class="footer-inner">
+      <span class="footer-copy">© 2026 gomatheus · Todos os direitos reservados</span>
+      <span class="footer-tagline">bem feito por gente do bem</span>
     </div>
   </footer>
 
-  <!-- ==============================
-       JAVASCRIPT
-  ============================== -->
-  <script>
-    /* -- FAQ Toggle -- */
-    function toggleFaq(btn) {
-      const item = btn.closest('.faq-item');
-      const isOpen = item.classList.contains('open');
-      document.querySelectorAll('.faq-item.open').forEach(el => el.classList.remove('open'));
-      if (!isOpen) item.classList.add('open');
-    }
 
-    /* -- Scroll Reveal -- */
+  <script>
+    // ── Scroll reveal
     const reveals = document.querySelectorAll('.reveal');
     const observer = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add('visible');
-          observer.unobserve(entry.target);
+      entries.forEach(e => {
+        if (e.isIntersecting) {
+          e.target.classList.add('visible');
+          observer.unobserve(e.target);
         }
       });
-    }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+    }, { threshold: 0.12 });
     reveals.forEach(el => observer.observe(el));
 
-    /* -- Nav background on scroll -- */
-    const nav = document.querySelector('nav');
-    window.addEventListener('scroll', () => {
-      if (window.scrollY > 60) {
-        nav.style.background = 'rgba(46,34,24,0.95)';
-      } else {
-        nav.style.background = 'rgba(59,63,43,0.85)';
-      }
+    // Trigger hero reveals immediately
+    document.querySelectorAll('#hero .reveal').forEach(el => {
+      setTimeout(() => el.classList.add('visible'), 80);
     });
 
-    /* -- Smooth step hover effect -- */
-    document.querySelectorAll('.step').forEach(step => {
-      step.addEventListener('mouseenter', () => {
-        step.querySelector('.step-number').style.color = 'var(--cobre)';
-      });
-      step.addEventListener('mouseleave', () => {
-        step.querySelector('.step-number').style.color = 'var(--pergaminho-08)';
-      });
+    // ── Nav background on scroll
+    const nav = document.querySelector('nav');
+    window.addEventListener('scroll', () => {
+      nav.style.background = window.scrollY > 40
+        ? 'rgba(11,10,7,0.97)'
+        : 'rgba(11,10,7,0.92)';
+    });
+
+    // ── Form submit (replace with your endpoint)
+    const form = document.getElementById('application-form');
+    const successMsg = document.getElementById('form-success');
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const btn = form.querySelector('.btn-submit');
+      btn.textContent = 'Enviando…';
+      btn.disabled = true;
+
+      // TODO: Integrar com endpoint real (Typeform, Notion, Supabase, Make, etc.)
+      // const data = Object.fromEntries(new FormData(form));
+      // await fetch('/api/aplicacao', { method: 'POST', body: JSON.stringify(data) });
+
+      // Simulate delay
+      await new Promise(r => setTimeout(r, 1400));
+      form.style.display = 'none';
+      successMsg.style.display = 'block';
+    });
+
+    // ── WhatsApp mask
+    const wppInput = document.getElementById('whatsapp');
+    wppInput.addEventListener('input', (e) => {
+      let v = e.target.value.replace(/\D/g, '');
+      if (v.length > 11) v = v.slice(0, 11);
+      if (v.length > 6) v = `(${v.slice(0,2)}) ${v.slice(2,7)}-${v.slice(7)}`;
+      else if (v.length > 2) v = `(${v.slice(0,2)}) ${v.slice(2)}`;
+      else if (v.length > 0) v = `(${v}`;
+      e.target.value = v;
     });
   </script>
+
 </body>
 </html>
