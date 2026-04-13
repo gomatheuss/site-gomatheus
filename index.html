@@ -1344,7 +1344,8 @@
         : 'rgba(11,10,7,0.92)';
     });
 
-    // ── Form submit (replace with your endpoint)
+    // ── Form submit → n8n webhook → Notion CRM GOMATHEUS
+    const WEBHOOK_URL = 'https://n8n.gomatheus.com.br/webhook/gomatheus-leads';
     const form = document.getElementById('application-form');
     const successMsg = document.getElementById('form-success');
     form.addEventListener('submit', async (e) => {
@@ -1353,12 +1354,17 @@
       btn.textContent = 'Enviando…';
       btn.disabled = true;
 
-      // TODO: Integrar com endpoint real (Typeform, Notion, Supabase, Make, etc.)
-      // const data = Object.fromEntries(new FormData(form));
-      // await fetch('/api/aplicacao', { method: 'POST', body: JSON.stringify(data) });
+      const data = Object.fromEntries(new FormData(form));
+      try {
+        await fetch(WEBHOOK_URL, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(data)
+        });
+      } catch (err) {
+        console.error('Erro ao enviar aplicação:', err);
+      }
 
-      // Simulate delay
-      await new Promise(r => setTimeout(r, 1400));
       form.style.display = 'none';
       successMsg.style.display = 'block';
     });
